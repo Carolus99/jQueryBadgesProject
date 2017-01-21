@@ -1,27 +1,42 @@
 $(function() {
 
   $.ajax({
-  url:'https://www.codeschool.com/users/Carolus99.json',
-  dataType:'jsonp',
-  success(response){
-    <div class="course">
-      <h3></h3>
-    <div class="course">
+      url: 'https://www.codeschool.com/users/Carolus99.json',
+      dataType: 'jsonp',
+      success: function(response) {
+        console.log('response', response.courses.completed);
+        addCourses(response.courses.completed);
+      }
+    });
 
-    </div>
+function addCourses(courses){
 
-        <h3></h3>
-    <div class="course">
-    </div>
+  var $badges = $('#badges');
 
-        <h3></h3>
-    </div>
+  courses.forEach(function(course) {
 
-    <div class="course">
-        <h3></h3>
-    </div>
-  }
+  var $course = $('<div />', {
+    'class':'course'
+  }).appendTo($badges);
 
-  });
+  $('<h3 />',{
+    text:course.title
+  }).appendTo($course);
+
+  $('<img />',{
+    src:course.badge
+  }).appendTo($course);
+
+  $('<a />',{
+    'class':'btn btn-primary',
+    target:'_blank',
+    href: course.url,
+    text:'See Course'
+  }).appendTo($course);
+
+
+})
+}
+
 
 });
